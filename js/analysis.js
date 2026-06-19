@@ -508,7 +508,17 @@ const CONTROL_TEMPLATES = {
       <button type="button" id="infra-finish">Selesai</button>
       <button type="button" id="infra-clear">Hapus</button>
     </div>
-    <p style="font-size:.72rem;color:#8aa8bc;margin:0">Klik titik A &rarr; B &rarr; C pada peta.</p>`,
+    <p style="font-size:.72rem;color:#8aa8bc;margin:0 0 12px 0">Klik titik A &rarr; B &rarr; C pada peta.</p>
+    <div class="control-group">
+      <label for="infra-max-depth-toggle" style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+        <input type="checkbox" id="infra-max-depth-toggle" checked>
+        Batas Kedalaman (m)
+      </label>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+        <input type="range" id="infra-max-depth" min="100" max="4000" step="100" value="1000" style="flex:1">
+        <span id="infra-max-depth-val" style="font-size:12px;font-weight:600;min-width:44px;text-align:right;">1000 m</span>
+      </div>
+    </div>`,
 };
 
 function renderInfoPanel(page) {
@@ -942,6 +952,22 @@ function bindControlHandlers(page) {
     document
       .getElementById("infra-clear")
       ?.addEventListener("click", clearInfraRoute);
+      
+    const maxDepthSlider = document.getElementById("infra-max-depth");
+    const maxDepthVal = document.getElementById("infra-max-depth-val");
+    const maxDepthToggle = document.getElementById("infra-max-depth-toggle");
+    
+    if (maxDepthSlider && maxDepthVal) {
+      maxDepthSlider.addEventListener("input", (e) => {
+        maxDepthVal.innerText = e.target.value + " m";
+        if (maxDepthToggle?.checked) computeInfraRoute();
+      });
+    }
+    if (maxDepthToggle) {
+      maxDepthToggle.addEventListener("change", () => {
+        computeInfraRoute();
+      });
+    }
   }
 }
 
@@ -1636,29 +1662,66 @@ function computeInfraRoute() {
   // Hitung panjang 2D dan 3D dari sample (bukan antar waypoint)
   // sehingga perubahan kedalaman per segmen ikut dihitung dengan benar
   let len2d = 0,
-    len3d = 0;
+    len3d = 0,
+    lenInvalid = 0;
+    
+  const useMaxDepth = document.getElementById("infra-max-depth-toggle")?.checked ?? true;
+  const maxDepth = parseFloat(document.getElementById("infra-max-depth")?.value) || 1000;
+
   for (let i = 1; i < samples.length; i++) {
     const p0 = samples[i - 1],
       p1 = samples[i];
     const d2 = haversineM(p0.lat, p0.lon, p1.lat, p1.lon);
     const dz = (p1.depth || 0) - (p0.depth || 0); // beda kedalaman (m)
     len2d += d2;
-    len3d += Math.sqrt(d2 * d2 + dz * dz);
+    const dist3d = Math.sqrt(d2 * d2 + dz * dz);
+    len3d += dist3d;
+    
+    if (useMaxDepth && ((p0.depth || 0) > maxDepth || (p1.depth || 0) > maxDepth)) {
+      lenInvalid += dist3d;
+    }
   }
 
   // Ambil sample lebih sedikit hanya untuk plot (N=200 terlalu detail)
   const plotSamples = sampleBathyAlongRoute(pts, 80);
   const yVals = plotSamples.map((s) => -(s.depth || 0));
-  const yMin = Math.min(...yVals);
+  const yMin = Math.min(...yVals, useMaxDepth ? -maxDepth : 0);
   // Beri ruang 15% di bawah nilai terdalam, min -1500m
-  const yFloor = Math.max(-1500, Math.floor((yMin * 1.15) / 100) * 100);
+  const yFloor = Math.max(-6000, Math.floor((yMin * 1.15) / 100) * 100);
 
   document.getElementById("infra-stats").innerHTML = `
     <div><strong>Panjang 2D:</strong> ${(len2d / 1000).toFixed(2)} km</div>
     <div><strong>Panjang 3D (slope):</strong> ${(len3d / 1000).toFixed(2)} km</div>
+    ${useMaxDepth ? `<div style="color:#ef4444;font-weight:bold;">Tdk Valid (>${maxDepth}m): ${(lenInvalid / 1000).toFixed(2)} km</div>` : ""}
     <div><strong>Titik:</strong> ${pts.length}</div>`;
 
   const { gridC, fontC } = plotTheme();
+  
+  const shapes = [];
+  if (useMaxDepth) {
+    const maxX = plotSamples[plotSamples.length - 1]?.distKm || 0;
+    shapes.push({
+      type: "line",
+      x0: 0,
+      x1: maxX,
+      y0: -maxDepth,
+      y1: -maxDepth,
+      line: { color: "#ef4444", width: 1.5, dash: "dot" }
+    });
+    shapes.push({
+      type: "rect",
+      xref: "x",
+      yref: "y",
+      x0: 0,
+      x1: maxX,
+      y0: -maxDepth,
+      y1: Math.min(-6000, yFloor - 500),
+      fillcolor: "rgba(239, 68, 68, 0.15)",
+      line: { width: 0 },
+      layer: "below"
+    });
+  }
+
   Plotly.newPlot(
     "chart-cross-section",
     [
@@ -1687,9 +1750,10 @@ function computeInfraRoute() {
       yaxis: {
         title: { text: "Kedalaman (m)", standoff: 4 },
         gridcolor: gridC,
-        range: [yFloor, 10], // autorange dinamis — bisa sampai -1500m
+        range: [yFloor, 10], // autorange dinamis — bisa sampai -6000m
         tickfont: { size: 10 },
       },
+      shapes: shapes,
     },
     { responsive: true, displayModeBar: false },
   );
@@ -2472,10 +2536,39 @@ function applyDeepLayer(fc) {
   if (!feats.length && deepGeoJsonIndex)
     feats = (deepGeoJsonIndex[key] || []).filter(isPolygonFeature);
   if (!feats.length) {
-    if (!applyDeepFallback(map))
-      setDeepMapStatus("Data peta tidak tersedia untuk periode ini.", true);
+    if (!applyDeepFallback(map)) {
+      setDeepMapStatus("Data peta tidak tersedia untuk kedalaman ini.", true);
+      const mapContainer = map.getContainer();
+      const oldWarn = mapContainer.querySelector('.deep-not-available-warning');
+      if (oldWarn) oldWarn.remove();
+      const warnDiv = document.createElement('div');
+      warnDiv.className = 'deep-not-available-warning';
+      warnDiv.style.cssText = `
+        position: absolute; top: 70px; right: 12px; z-index: 900;
+        background: rgba(245, 158, 11, 0.92); color: white;
+        padding: 10px 36px 10px 14px; border-radius: 8px;
+        font-size: 12px; line-height: 1.5; max-width: 260px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+        border: 1.5px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(4px);
+      `;
+      warnDiv.innerHTML = `
+        <button onclick="this.parentElement.remove()" style="
+          position:absolute; top:6px; right:8px;
+          background:none; border:none; color:rgba(255,255,255,0.85);
+          font-size:16px; cursor:pointer; line-height:1; padding:0;
+        " aria-label="Tutup peringatan">&times;</button>
+        <b>&#9888;&#65039; TIDAK TERSEDIA</b><br>
+        Tidak ada data suhu laut dalam untuk kedalaman yang dipilih (${deepDepthM} m).<br>
+        Wilayah ini kemungkinan terlalu dangkal.
+      `;
+      mapContainer.style.position = mapContainer.style.position || 'relative';
+      mapContainer.appendChild(warnDiv);
+    }
     return;
   }
+  const oldWarn = map.getContainer().querySelector('.deep-not-available-warning');
+  if (oldWarn) oldWarn.remove();
   setDeepMapStatus("");
   deepGeoLayer = L.geoJSON(
     { type: "FeatureCollection", features: feats },
