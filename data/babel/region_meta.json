@@ -1,0 +1,40 @@
+{
+  "id": "babel",
+  "name": "Bangka Belitung",
+  "center": [
+    -2.5,
+    106.5
+  ],
+  "bounds": [
+    104.0,
+    -4.0,
+    109.0,
+    -1.0
+  ],
+  "delta_t": 19.5,
+  "sst_avg": 28.8,
+  "max_depth": "<500m",
+  "status": "medium",
+  "status_text": "SEDANG",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "bathy_meta.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json",
+    "waves_rose.json",
+    "waves_spectrum.json"
+  ]
+}

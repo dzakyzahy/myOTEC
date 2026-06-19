@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"geometry":{"type":"LineString","coordinates":[[113.0,-8.5053],[113.0436,-8.52],[113.02,-8.5266],[113.0,-8.5294]]},"properties":{"year":"2025","depth_m":500,"threshold_c":20.0,"layer":"threshold_20","title":"20.0\u00b0C"},"type":"Feature"}]}

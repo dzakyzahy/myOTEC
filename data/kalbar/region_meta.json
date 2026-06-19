@@ -1,0 +1,33 @@
+{
+  "id": "kalbar",
+  "name": "Kalimantan Barat",
+  "center": [
+    -0.5,
+    109.2
+  ],
+  "bounds": [
+    108.0,
+    -2.0,
+    110.5,
+    1.5
+  ],
+  "delta_t": 18.0,
+  "sst_avg": 29.0,
+  "max_depth": "<500m",
+  "status": "medium",
+  "status_text": "KURANG POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": false
+  },
+  "files": [
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "timeseries.json",
+    "waves_grid.json"
+  ]
+}

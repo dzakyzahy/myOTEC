@@ -1,0 +1,39 @@
+{
+  "id": "teluk_cenderawasih",
+  "name": "Teluk Cenderawasih (Papua)",
+  "center": [
+    -2.0,
+    135.8
+  ],
+  "bounds": [
+    134.0,
+    -3.5,
+    137.5,
+    -0.5
+  ],
+  "delta_t": 22.8,
+  "sst_avg": 29.2,
+  "max_depth": ">2000m",
+  "status": "good",
+  "status_text": "POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": false
+  },
+  "files": [
+    "bathy_meta.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json",
+    "waves_rose.json",
+    "waves_spectrum.json"
+  ]
+}

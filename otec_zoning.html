@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="id" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="myOTEC — Peta Zonasi MCDA + Potensi Daya OTEC terintegrasi."
+    />
+    <title>myOTEC — Zonasi MCDA &amp; Potensi Daya</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>~</text></svg>"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      /* ── Page scaffolding ─────────────────────────── */
+      .oz-layout {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        padding-top: 64px; /* navbar */
+        background: var(--bg-deep);
+        overflow: hidden;
+      }
+
+      /* Thin page-header strip */
+      .oz-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.65rem 1.5rem;
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+        background: var(--bg-primary);
+      }
+
+      .oz-header-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-primary);
+        flex: 1;
+      }
+
+      .oz-header-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        padding: 0.2rem 0.6rem;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+      }
+
+      .oz-back-link {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .oz-back-link:hover {
+        color: var(--accent);
+      }
+
+      /* ── Three-column body ─────────────────────────── */
+      .oz-body {
+        flex: 1;
+        display: flex;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* ── LEFT: report panel ────────────────────────── */
+      .oz-panel-left {
+        width: 300px;
+        flex-shrink: 0;
+        background: var(--bg-primary);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .oz-panel-header {
+        padding: 0.85rem 1.1rem 0.7rem;
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+
+      .oz-panel-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 0.15rem;
+      }
+
+      .oz-panel-subtitle {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+      }
+
+      #oz-report-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.9rem 1rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      /* Report sub-components */
+      .oz-report-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        height: 100%;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+
+      .oz-report-coord {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .oz-chip {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.1rem 0.35rem;
+        font-size: 0.55rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        vertical-align: middle;
+      }
+
+      .oz-status-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--radius-sm);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1rem;
+      }
+
+      .oz-report-section-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.58rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        margin: 0.85rem 0 0.45rem;
+        padding-bottom: 0.35rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .oz-metrics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .oz-metric {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem 0.65rem;
+      }
+
+      .oz-metric-wide {
+        grid-column: 1 / -1;
+      }
+
+      .oz-metric-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.58rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
+
+      .oz-metric-value {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .oz-power-val {
+        font-size: 1.15rem;
+      }
+
+      .oz-criteria-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-top: 0.1rem;
+      }
+
+      .oz-criterion {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      /* ── CENTER: map area ──────────────────────────── */
+      .oz-map-wrap {
+        flex: 1;
+        position: relative;
+        min-width: 0;
+      }
+
+      #map-otec-zoning {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Colorbar legend pinned bottom-center of map */
+      .oz-colorbar-wrap {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 800;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 0.65rem 0.9rem 0.55rem;
+        min-width: 200px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .oz-colorbar-label-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.3rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.58rem;
+        color: var(--text-muted);
+      }
+
+      .oz-colorbar-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        text-align: center;
+        margin-bottom: 0.35rem;
+      }
+
+      /* Map overlay hint */
+      .oz-map-hint {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 800;
+        background: rgba(17, 29, 43, 0.88);
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        padding: 0.35rem 1rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.62rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        pointer-events: none;
+        transition: opacity 0.4s;
+      }
+
+      /* ── RIGHT: filter + params panel ─────────────── */
+      .oz-panel-right {
+        width: 280px;
+        flex-shrink: 0;
+        background: var(--bg-primary);
+        border-left: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .oz-section {
+        padding: 0.9rem 1.1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .oz-section-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.58rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+
+      /* MCDA checkboxes */
+      .oz-mcda-check {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        padding: 0.5rem 0.65rem;
+        margin-bottom: 0.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        background: var(--bg-card);
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+      }
+
+      .oz-mcda-check:hover {
+        border-color: var(--border-hover);
+        background: var(--bg-card-hover);
+      }
+
+      .oz-mcda-check input[type="checkbox"] {
+        accent-color: var(--accent);
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      /* Param inputs */
+      .oz-control-group {
+        margin-bottom: 0.85rem;
+      }
+
+      .oz-control-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.35rem;
+      }
+
+      .oz-control-label span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .oz-control-group input[type="number"] {
+        width: 100%;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        padding: 0.45rem 0.7rem;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: textfield;
+        -moz-appearance: textfield;
+      }
+
+      .oz-control-group input[type="number"]::-webkit-outer-spin-button,
+      .oz-control-group input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .oz-control-group input[type="number"]:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(74, 158, 191, 0.15);
+      }
+
+      .oz-formula-note {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        font-family: "JetBrains Mono", monospace;
+        margin-top: 0.2rem;
+        line-height: 1.4;
+      }
+
+      .oz-refresh-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0.55rem;
+        margin-top: 0.25rem;
+        background: var(--accent-subtle);
+        border: 1px solid rgba(74, 158, 191, 0.3);
+        border-radius: var(--radius-sm);
+        color: var(--accent);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .oz-refresh-btn:hover {
+        background: rgba(74, 158, 191, 0.15);
+        border-color: var(--accent);
+      }
+
+      /* Info note */
+      .oz-info-note {
+        background: rgba(74, 158, 191, 0.06);
+        border: 1px solid rgba(74, 158, 191, 0.15);
+        border-radius: var(--radius-sm);
+        padding: 0.6rem 0.8rem;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      .oz-info-note strong {
+        color: var(--accent);
+      }
+
+      /* ── Responsive ─────────────────────────────────── */
+      @media (max-width: 1280px) {
+        .oz-panel-left {
+          width: 260px;
+        }
+        .oz-panel-right {
+          width: 240px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .oz-body {
+          flex-direction: column;
+        }
+        .oz-panel-left,
+        .oz-panel-right {
+          width: 100%;
+          height: 35vh;
+          border-right: none;
+          border-left: none;
+          border-top: 1px solid var(--border);
+        }
+        .oz-panel-left {
+          order: 3;
+          border-top: 1px solid var(--border);
+        }
+        .oz-map-wrap {
+          height: 55vh;
+          flex: none;
+        }
+        .oz-panel-right {
+          order: 2;
+          border-bottom: 1px solid var(--border);
+          flex-direction: row;
+          overflow-x: auto;
+          height: auto;
+        }
+        .oz-section {
+          min-width: 220px;
+          border-bottom: none;
+          border-right: 1px solid var(--border);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">MY<span>OTEC</span></span>
+        <button class="sidebar-close" id="sidebar-close" aria-label="Close">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#tujuan">Tujuan</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="analysis.html">Analisis</a>
+        <a href="otec_zoning.html" class="active">Zonasi OTEC</a>
+      </nav>
+    </aside>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <div class="nav-left">
+          <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 12h18M3 6h18M3 18h18" />
+            </svg>
+          </button>
+          <a href="index.html" class="logo">MY<span>OTEC</span></a>
+        </div>
+        <div class="nav-right" id="top-nav-links">
+          <a
+            href="dashboard.html"
+            class="nav-cta"
+            style="margin-right: 0.5rem; font-size: 0.7rem"
+            >DASHBOARD</a
+          >
+          <a href="analysis.html" class="nav-cta" id="nav-analisis-link">ANALISIS</a>
+          <script>
+             const urlParamsNavZoning = new URLSearchParams(window.location.search);
+             const regZoning = urlParamsNavZoning.get('region');
+             if(regZoning) document.getElementById('nav-analisis-link').href = `analysis.html?region=${regZoning}`;
+          </script>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ══ THREE-PANEL LAYOUT ══════════════════════════ -->
+    <div class="oz-layout">
+      <!-- Page header strip -->
+      <div class="oz-header">
+        <a href="analysis.html" class="oz-back-link">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Kembali
+        </a>
+        <div class="oz-header-title">
+          Zonasi Kelayakan MCDA &amp; Potensi Daya OTEC
+        </div>
+        <span class="oz-header-label">MCDA + POWER</span>
+      </div>
+
+      <div class="oz-body">
+        <!-- ─── LEFT: Point Analysis Report ──────────── -->
+        <aside class="oz-panel-left">
+          <div class="oz-panel-header">
+            <div class="oz-panel-title">Laporan Titik</div>
+            <div class="oz-panel-subtitle">Point Analysis Report</div>
+          </div>
+          <div id="oz-report-body">
+            <!-- Filled by otec_zoning.js -->
+          </div>
+        </aside>
+
+        <!-- ─── CENTER: Map ───────────────────────────── -->
+        <main class="oz-map-wrap">
+          <div id="map-otec-zoning"></div>
+
+          <!-- Click hint -->
+          <div class="oz-map-hint" id="oz-map-hint">
+            Klik peta untuk analisis titik
+          </div>
+
+          <!-- Colorbar legend -->
+          <div class="oz-colorbar-wrap">
+            <div class="oz-colorbar-title">Net Power (MW)</div>
+            <canvas
+              id="oz-colorbar-canvas"
+              width="200"
+              height="14"
+              style="width: 100%; border-radius: 3px"
+            ></canvas>
+            <div class="oz-colorbar-label-row">
+              <span>0</span>
+              <span>5</span>
+              <span>10</span>
+              <span>15</span>
+              <span>&ge;20</span>
+            </div>
+          </div>
+        </main>
+
+        <!-- ─── RIGHT: Filter & Parameters ───────────── -->
+        <aside class="oz-panel-right">
+          <!-- MCDA Filters -->
+          <div class="oz-section">
+            <div class="oz-section-title">Filter MCDA</div>
+
+            <label class="oz-mcda-check">
+              <input type="checkbox" id="oz-mcda-depth" checked />
+              <div>
+                <div style="font-weight: 600; color: var(--text-primary)">
+                  Kedalaman &gt; 1000 m
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted)">
+                  Laut dalam diperlukan untuk pipa pendingin OTEC
+                </div>
+              </div>
+            </label>
+
+            <label class="oz-mcda-check">
+              <input type="checkbox" id="oz-mcda-deltat" checked />
+              <div>
+                <div style="font-weight: 600; color: var(--text-primary)">
+                  Delta T &gt; 22&deg;C
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted)">
+                  Gradien termal minimum untuk siklus OTEC
+                </div>
+              </div>
+            </label>
+
+            <label class="oz-mcda-check">
+              <input type="checkbox" id="oz-mcda-current" checked />
+              <div>
+                <div style="font-weight: 600; color: var(--text-primary)">
+                  Arus &lt; 1 m/s
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted)">
+                  Arus rendah menjaga stabilitas platform
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Power Parameters -->
+          <div class="oz-section">
+            <div class="oz-section-title">Parameter Daya</div>
+
+            <div class="oz-control-group">
+              <div class="oz-control-label">
+                Efisiensi Neto (&#951;)
+                <span id="oz-efficiency-display">3%</span>
+              </div>
+              <input
+                type="number"
+                id="oz-efficiency"
+                min="0.5"
+                max="89"
+                step="0.5"
+                value="3"
+                placeholder="3"
+              />
+              <div class="oz-formula-note">
+                Rentang wajar OTEC: 2&ndash;5 %. Maks 89 %.
+              </div>
+            </div>
+
+            <div class="oz-control-group">
+              <div class="oz-control-label">
+                Aliran Air Q (m&sup3;/s)
+                <span id="oz-flow-display">100 m³/s</span>
+              </div>
+              <input
+                type="number"
+                id="oz-flow"
+                min="1"
+                max="500"
+                step="5"
+                value="100"
+                placeholder="100"
+              />
+            </div>
+
+            <div class="oz-formula-note" style="margin-bottom: 0.65rem">
+              P<sub>gross</sub> = (Q/100) &times; 10 &times; (&Delta;T/22)&sup2;
+              MW
+              <br />
+              P<sub>net</sub> = &#951; &times; P<sub>gross</sub>
+            </div>
+
+            <button class="oz-refresh-btn" id="oz-refresh-btn">
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              >
+                <polyline points="23 4 23 10 17 10" />
+                <polyline points="1 20 1 14 7 14" />
+                <path
+                  d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"
+                />
+              </svg>
+              Perbarui Peta
+            </button>
+          </div>
+
+          <!-- Legend / info -->
+          <div class="oz-section" style="border-bottom: none; flex: 1">
+            <div class="oz-section-title">Keterangan</div>
+            <div class="oz-info-note">
+              <strong>Turbo colormap</strong> menunjukkan intensitas daya neto
+              OTEC (MW). Area yang <em>tidak memenuhi</em> filter MCDA aktif
+              ditampilkan 100% transparan.
+            </div>
+            <div class="oz-info-note" style="margin-top: 0.6rem">
+              <strong>Klik titik manapun</strong> pada peta untuk menampilkan
+              laporan terperinci di panel kiri termasuk data fisik dan kalkulasi
+              termodinamik.
+            </div>
+          </div>
+        </aside>
+      </div>
+      <!-- /.oz-body -->
+    </div>
+    <!-- /.oz-layout -->
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/dynamic_loader.js" data-main="js/otec_zoning.js"></script>
+    <script>
+      /* ── Sidebar / navbar boilerplate ── */
+      (function () {
+        const sb = document.getElementById("sidebar");
+        const overlay = document.getElementById("sidebar-overlay");
+        const menuBtn = document.getElementById("menu-toggle");
+        const closeBtn = document.getElementById("sidebar-close");
+        function open() {
+          sb?.classList.add("open");
+          overlay?.classList.add("open");
+        }
+        function close() {
+          sb?.classList.remove("open");
+          overlay?.classList.remove("open");
+        }
+        menuBtn?.addEventListener("click", open);
+        closeBtn?.addEventListener("click", close);
+        overlay?.addEventListener("click", close);
+        document
+          .querySelectorAll(".sidebar-nav a")
+          .forEach((l) => l.addEventListener("click", close));
+
+        /* Live display updates for right-panel inputs */
+        document
+          .getElementById("oz-efficiency")
+          ?.addEventListener("input", function () {
+            const v = Math.max(0.5, Math.min(parseFloat(this.value) || 3, 89));
+            document.getElementById("oz-efficiency-display").textContent =
+              v + "%";
+          });
+        document
+          .getElementById("oz-flow")
+          ?.addEventListener("input", function () {
+            document.getElementById("oz-flow-display").textContent =
+              (this.value || 100) + " m³/s";
+          });
+
+        /* Manual refresh button */
+        document
+          .getElementById("oz-refresh-btn")
+          ?.addEventListener("click", () => {
+            /* Trigger change on any one input to fire the listener in otec_zoning.js */
+            document
+              .getElementById("oz-efficiency")
+              ?.dispatchEvent(new Event("change"));
+          });
+
+        /* Hide hint after first click */
+        document.getElementById("map-otec-zoning")?.addEventListener(
+          "click",
+          () => {
+            const h = document.getElementById("oz-map-hint");
+            if (h) h.style.opacity = "0";
+          },
+          { once: true },
+        );
+      })();
+    </script>
+  </body>
+</html>

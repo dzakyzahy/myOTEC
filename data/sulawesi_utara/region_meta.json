@@ -1,0 +1,40 @@
+{
+  "id": "sulawesi_utara",
+  "name": "Sulawesi Utara",
+  "center": [
+    1.5,
+    125.0
+  ],
+  "bounds": [
+    122.0,
+    -1.0,
+    127.0,
+    3.5
+  ],
+  "delta_t": 22.5,
+  "sst_avg": 28.5,
+  "max_depth": ">2000m",
+  "status": "good",
+  "status_text": "POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "bathy_meta.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json",
+    "waves_rose.json",
+    "waves_spectrum.json"
+  ]
+}

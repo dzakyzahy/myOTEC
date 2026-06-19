@@ -1,0 +1,33 @@
+{
+  "id": "aceh_sabang",
+  "name": "Aceh (Sabang)",
+  "center": [
+    5.5,
+    96.5
+  ],
+  "bounds": [
+    94.5,
+    4.5,
+    98.5,
+    6.5
+  ],
+  "delta_t": 22.0,
+  "sst_avg": 29.0,
+  "max_depth": ">2000m",
+  "status": "good",
+  "status_text": "POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": false
+  },
+  "files": [
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "timeseries.json",
+    "waves_grid.json"
+  ]
+}

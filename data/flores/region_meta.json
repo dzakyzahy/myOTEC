@@ -1,0 +1,38 @@
+{
+  "id": "flores",
+  "name": "Laut Flores",
+  "center": [
+    -7.5,
+    121.5
+  ],
+  "bounds": [
+    119.0,
+    -9.0,
+    124.0,
+    -6.0
+  ],
+  "delta_t": 23.1,
+  "sst_avg": 28.7,
+  "max_depth": ">2500m",
+  "status": "good",
+  "status_text": "SANGAT POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "bathy_meta.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json"
+  ]
+}

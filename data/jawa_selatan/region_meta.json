@@ -1,0 +1,34 @@
+{
+  "id": "jawa_selatan",
+  "name": "Selatan Jawa",
+  "center": [
+    -8.5,
+    109.5
+  ],
+  "bounds": [
+    106.5,
+    -9.5,
+    113.0,
+    -7.0
+  ],
+  "delta_t": 22.5,
+  "sst_avg": 28.9,
+  "max_depth": ">2500m",
+  "status": "good",
+  "status_text": "POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "timeseries.json",
+    "waves_grid.json"
+  ]
+}

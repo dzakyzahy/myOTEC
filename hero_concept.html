@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where Purpose Gathers - Hero Section</title>
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonts: Cormorant Garamond for the elegant serif, Inter for the clean sans-serif -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f2f2f2; /* Off-white / light grey for the editorial feel */
+            --text-color: #111111;
+            --text-muted: #555555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* Subtle grain texture overlay */
+            position: relative;
+        }
+
+        /* Noise Texture using SVG filter */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.35;
+            mix-blend-mode: multiply;
+        }
+
+        /* Main Hero Container */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* The sculptural/floral background asset */
+        .hero-asset-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 1000px;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-asset {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            /* Making the image blend into the off-white background */
+            mix-blend-mode: darken;
+            /* Styling to make standard photos look more like white plaster/relief sculpture */
+            filter: grayscale(100%) contrast(1.1) brightness(1.1) drop-shadow(0 20px 30px rgba(0,0,0,0.05));
+            opacity: 0;
+            transform: scale(0.95);
+            animation: assetReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+        }
+
+        /* Typography */
+        .hero-title {
+            position: relative;
+            z-index: 2;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 500;
+            line-height: 0.95;
+            text-align: center;
+            letter-spacing: -0.03em;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .title-line {
+            display: block;
+            overflow: hidden; /* For reveal animation */
+        }
+
+        .title-line span {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: textReveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        .title-line:nth-child(1) span {
+            animation-delay: 0.2s;
+        }
+
+        .title-line:nth-child(2) span {
+            animation-delay: 0.4s;
+            /* Add slight right indent to match the staggered look */
+            margin-left: 5%;
+        }
+
+        /* Subtitle */
+        .hero-subtitle {
+            position: absolute;
+            bottom: 8%;
+            z-index: 2;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 420px;
+            line-height: 1.6;
+            letter-spacing: 0.01em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) 1.2s forwards;
+            padding: 0 20px;
+        }
+
+        /* Animations */
+        @keyframes textReveal {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes assetReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 0.9;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Navigation / Header (Optional touch to make it feel complete) */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.5s forwards;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Interactive layer styling */
+        .interactive-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- SVG Noise Texture -->
+    <svg class="noise" viewBox="0 0 100% 100%" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Asterisk.</div>
+        <div class="menu-btn">Menu</div>
+    </header>
+
+    <!-- Main Hero -->
+    <main class="hero" id="hero">
+        
+        <!-- Asset Container for Parallax -->
+        <div class="hero-asset-container" id="parallax-bg">
+            <!-- Substitute asset: A beautiful white floral/sculptural element from Unsplash -->
+            <!-- Using a white orchid/botanical image that blends beautifully with darken mode -->
+            <img src="https://images.unsplash.com/photo-1603484432040-7e3f65624773?q=80&w=2000&auto=format&fit=crop" alt="Abstract botanical relief" class="hero-asset">
+        </div>
+
+        <!-- Interactive Text Container -->
+        <div class="interactive-layer" id="parallax-text" style="display: flex; justify-content: center; align-items: center; flex-direction: column; pointer-events: none;">
+            <h1 class="hero-title">
+                <span class="title-line"><span>Where Purpose</span></span>
+                <span class="title-line"><span>Gathers.</span></span>
+            </h1>
+        </div>
+
+        <p class="hero-subtitle">
+            Asterisk Digital is a lifelong learning community for people who are changing the face of venture capital.
+        </p>
+
+    </main>
+
+    <script>
+        // Smooth parallax effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const hero = document.getElementById('hero');
+            const bg = document.getElementById('parallax-bg');
+            const text = document.getElementById('parallax-text');
+
+            // Mouse move interaction
+            hero.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5);
+                const y = (e.clientY / window.innerHeight - 0.5);
+
+                // Move background slightly in opposite direction
+                bg.style.transform = `translate(calc(-50% + ${x * 20}px), calc(-50% + ${y * 20}px))`;
+                
+                // Move text slightly towards mouse to create depth
+                text.style.transform = `translate(${x * -15}px, ${y * -15}px)`;
+            });
+
+            // Reset on mouse leave
+            hero.addEventListener('mouseleave', () => {
+                bg.style.transform = `translate(-50%, -50%)`;
+                bg.style.transition = `transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)`;
+                
+                text.style.transform = `translate(0px, 0px)`;
+                text.style.transition = `transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)`;
+                
+                // Remove transition after it completes to restore responsive tracking
+                setTimeout(() => {
+                    bg.style.transition = '';
+                    text.style.transition = '';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

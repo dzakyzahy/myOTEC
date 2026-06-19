@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="myOTEC — Platform informasi potensi energi laut berbasis perbedaan suhu laut untuk mendorong energi bersih, stabil, dan berkelanjutan bagi Indonesia." />
+  <meta name="keywords" content="OTEC, Ocean Thermal Energy, energi laut, energi terbarukan, Indonesia, Oseanografi" />
+  <title>myOTEC — Ocean Thermal Energy Platform</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/dark_copy_horizontal.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ============================================================
+       MY OTEC LANDING PAGE — Design System
+       Theme: Modern Light · Navy & Ocean Blue Accent
+    ============================================================ */
+
+    :root {
+      /* Colors */
+      --navy:       #1E3A8A;
+      --navy-dark:  #162d6e;
+      --ocean:      #0EA5E9;
+      --ocean-dark: #0284C7;
+      --ocean-light:#BAE6FD;
+      --teal:       #06B6D4;
+
+      /* Backgrounds */
+      --bg:         #F8FAFC;
+      --bg-white:   #FFFFFF;
+      --bg-section: #F1F5F9;
+      --bg-card:    #FFFFFF;
+
+      /* Text */
+      --text-dark:  #1E293B;
+      --text-mid:   #334155;
+      --text-muted: #64748B;
+      --text-light: #94A3B8;
+
+      /* Borders */
+      --border:     #E2E8F0;
+      --border-md:  #CBD5E1;
+
+      /* Status */
+      --green:      #10B981;
+      --amber:      #F59E0B;
+      --red:        #EF4444;
+
+      /* Spacing */
+      --section-pad: clamp(4rem, 8vw, 7rem);
+      --container:   1280px;
+
+      /* Radii */
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+
+      /* Shadows */
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-xl:  0 24px 64px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.06);
+      --shadow-navy: 0 8px 32px rgba(30,58,138,0.18);
+      --shadow-ocean:0 8px 32px rgba(14,165,233,0.22);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-md); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+
+    /* ── Utility ── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+    .section { padding: var(--section-pad) 0; }
+    .section-alt { background: var(--bg-section); }
+    .text-navy { color: var(--navy); }
+    .text-ocean { color: var(--ocean); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* Section heading style */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ocean);
+      background: rgba(14,165,233,0.08);
+      border: 1px solid rgba(14,165,233,0.2);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 0.6rem; padding: 0.85rem 2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 700;
+      border-radius: var(--radius-md);
+      cursor: pointer; transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+      text-decoration: none; border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--navy), #2554b8);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: var(--shadow-navy);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(30,58,138,0.28);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--navy);
+    }
+    .btn-secondary:hover {
+      background: var(--navy);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-navy);
+    }
+    .btn-ocean {
+      background: linear-gradient(135deg, var(--ocean), var(--teal));
+      color: #fff;
+      box-shadow: var(--shadow-ocean);
+    }
+    .btn-ocean:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(14,165,233,0.35);
+    }
+
+    /* ============================================================
+       1. NAVBAR
+    ============================================================ */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s ease;
+    }
+    .navbar-inner {
+      max-width: var(--container); margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 3rem);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    /* Logo */
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--navy), var(--ocean));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(30,58,138,0.25);
+      flex-shrink: 0;
+    }
+    .nav-logo-text { line-height: 1.1; }
+    .nav-logo-text .line1 { font-size: 0.88rem; font-weight: 800; color: var(--navy); }
+    .nav-logo-text .line2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+    /* Nav links */
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+    }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; color: var(--text-mid);
+      padding: 0.45rem 0.85rem; border-radius: var(--radius-sm);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--navy); background: rgba(30,58,138,0.07); }
+    .nav-links a.active { color: var(--navy); font-weight: 600; background: rgba(30,58,138,0.07); }
+    /* Hamburger */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 4px;
+      width: 28px; height: 28px; justify-content: center; cursor: pointer;
+      padding: 3px;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; border-radius: 2px;
+      background: var(--navy); transition: all 0.3s ease;
+    }
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      position: absolute; top: 68px; left: 0; right: 0;
+      padding: 1rem 1.5rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+      z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 0.95rem; font-weight: 500; color: var(--text-mid);
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--navy); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ============================================================
+       2. HERO SECTION
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #EFF6FF 0%, #F0F9FF 40%, #E0F2FE 70%, #DBEAFE 100%);
+      overflow: hidden;
+      padding-top: 68px;
+    }
+    /* Animated ocean blob */
+    .hero-blob {
+      position: absolute; right: -5%; top: -10%;
+      width: 65vw; max-width: 820px;
+      aspect-ratio: 1;
+      background: radial-gradient(ellipse at 40% 40%,
+        rgba(14,165,233,0.12) 0%,
+        rgba(30,58,138,0.07) 50%,
+        transparent 70%);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      animation: blobMorph 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes blobMorph {
+      0%,100% { border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; transform: rotate(0deg) scale(1); }
+      33% { border-radius: 40% 60% 45% 55% / 60% 40% 60% 40%; transform: rotate(4deg) scale(1.04); }
+      66% { border-radius: 55% 45% 60% 40% / 40% 55% 45% 60%; transform: rotate(-3deg) scale(0.98); }
+    }
+    /* Wave decoration bottom */
+    .hero-wave {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 1;
+      pointer-events: none; line-height: 0;
+    }
+    .hero-wave svg { width: 100%; height: auto; }
+
+    /* Hero inner */
+    .hero-inner {
+      position: relative; z-index: 2;
+      width: 100%;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    @media (max-width: 850px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    /* Hero text */
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--ocean); margin-bottom: 1.25rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 24px; height: 2px;
+      background: linear-gradient(90deg, var(--navy), var(--ocean));
+      border-radius: 1px;
+    }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.04em;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--navy), var(--ocean));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--text-mid); line-height: 1.75;
+      max-width: 480px; margin-bottom: 2rem;
+    }
+    .hero-cta {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    /* Hero image */
+    .hero-visual {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-img-wrap {
+      position: relative; width: 100%;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #0c3b6e, #0284c7);
+    }
+    .hero-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .hero-img-wrap:hover img { transform: scale(1.04); }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom right, rgba(30,58,138,0.1), transparent);
+      pointer-events: none;
+    }
+    /* Float badges */
+    .hero-badge {
+      position: absolute;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 0.7rem;
+      animation: floatUpDown 4s ease-in-out infinite;
+    }
+    .hero-badge.badge-tl { top: -1rem; left: -1.5rem; animation-delay: 0s; }
+    .hero-badge.badge-br { bottom: 1rem; right: -1rem; animation-delay: 2s; }
+    @keyframes floatUpDown {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .hero-badge .badge-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .badge-icon.navy-bg { background: linear-gradient(135deg, var(--navy), #2554b8); }
+    .badge-icon.ocean-bg { background: linear-gradient(135deg, var(--ocean), var(--teal)); }
+    .hero-badge .badge-text { line-height: 1.2; }
+    .hero-badge .badge-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--text-dark);
+    }
+    .hero-badge .badge-lbl {
+      font-size: 0.7rem; color: var(--text-muted); display: block;
+    }
+    @media (max-width: 850px) {
+      .hero-badge.badge-tl { top: -0.5rem; left: -0.5rem; }
+      .hero-badge.badge-br { bottom: 0.5rem; right: 0; }
+    }
+
+    /* ============================================================
+       3. KPI RIBBON
+    ============================================================ */
+    .kpi-ribbon {
+      background: linear-gradient(135deg, var(--navy) 0%, #1d4ed8 50%, var(--ocean-dark) 100%);
+      padding: 3rem 0;
+      position: relative; overflow: hidden;
+    }
+    .kpi-ribbon::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 380px) { .kpi-grid { grid-template-columns: 1fr; } }
+
+    .kpi-item {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 1.75rem 1.25rem;
+      background: rgba(255,255,255,0.04);
+      transition: background 0.3s;
+      gap: 0.6rem;
+    }
+    .kpi-item:hover { background: rgba(255,255,255,0.09); }
+    .kpi-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff; margin-bottom: 0.25rem;
+    }
+    .kpi-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; color: #fff; line-height: 1;
+    }
+    .kpi-label {
+      font-size: 0.78rem; color: rgba(255,255,255,0.7);
+      font-weight: 500; line-height: 1.3;
+    }
+    .kpi-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* ============================================================
+       4. TENTANG OTEC
+    ============================================================ */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    @media (max-width: 850px) { .about-grid { grid-template-columns: 1fr; } }
+
+    /* Video placeholder */
+    .video-placeholder {
+      position: relative; border-radius: var(--radius-xl);
+      overflow: hidden; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0c3b6e, #0284c7, #06b6d4);
+      cursor: pointer; box-shadow: var(--shadow-xl);
+    }
+    .video-placeholder video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .video-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.25);
+      transition: background 0.3s;
+    }
+    .video-placeholder:hover .video-overlay { background: rgba(0,0,0,0.15); }
+    .play-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--navy);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      transition: all 0.3s;
+    }
+    .video-placeholder:hover .play-btn { transform: scale(1.08); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .video-label {
+      position: absolute; bottom: 1rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,0.8);
+    }
+
+    /* About right column */
+    .about-right { display: flex; flex-direction: column; gap: 1.75rem; }
+    .about-text-block {}
+    .about-text-block h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 0.6rem;
+    }
+    .about-text-block p {
+      font-size: 0.95rem; color: var(--text-muted); line-height: 1.75;
+    }
+    .cara-kerja-card {
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #EFF6FF, #E0F2FE);
+      border: 1px solid rgba(14,165,233,0.15);
+      padding: 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .cara-kerja-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy), var(--ocean));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: #fff; flex-shrink: 0;
+    }
+    .cara-kerja-text h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700; color: var(--text-dark);
+      margin-bottom: 0.2rem;
+    }
+    .cara-kerja-text p { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ============================================================
+       5. MANFAAT OTEC
+    ============================================================ */
+    .benefits-header {
+      text-align: center; margin-bottom: 3rem;
+      position: relative;
+    }
+    .tahukah-bubble {
+      position: absolute; right: 0; top: 0;
+      background: linear-gradient(135deg, var(--amber), #fbbf24);
+      color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.4rem 0.9rem; border-radius: 99px;
+      box-shadow: 0 4px 12px rgba(245,158,11,0.35);
+      display: flex; align-items: center; gap: 0.35rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 600px) {
+      .tahukah-bubble { position: static; display: inline-flex; margin-top: 0.5rem; }
+    }
+    .benefits-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 1050px) { .benefits-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 650px)  { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px)  { .benefits-grid { grid-template-columns: 1fr; } }
+
+    .benefit-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+      cursor: default;
+    }
+    .benefit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(14,165,233,0.2);
+    }
+    .benefit-icon {
+      width: 60px; height: 60px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin: 0 auto 1rem;
+    }
+    .benefit-card h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--text-dark); line-height: 1.4;
+    }
+    .benefit-card p {
+      font-size: 0.78rem; color: var(--text-muted);
+      margin-top: 0.4rem; line-height: 1.55;
+    }
+
+    /* ============================================================
+       6. DATA & METODOLOGI
+    ============================================================ */
+    .metode-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    @media (max-width: 750px) { .metode-grid { grid-template-columns: 1fr; } }
+
+    .metode-col {}
+    .metode-subtitle {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .metode-subtitle i { color: var(--ocean); font-size: 0.9rem; }
+
+    .source-chips {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem;
+    }
+    .source-chip {
+      display: flex; align-items: center; gap: 0.45rem;
+      background: linear-gradient(135deg, #EFF6FF, #E0F2FE);
+      border: 1px solid rgba(14,165,233,0.2);
+      border-radius: 99px; padding: 0.45rem 0.9rem;
+      font-size: 0.8rem; font-weight: 600; color: var(--navy);
+      box-shadow: var(--shadow-sm);
+    }
+    .source-chip i { color: var(--ocean); font-size: 0.75rem; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .step-item {
+      display: flex; align-items: flex-start; gap: 0.85rem;
+    }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--ocean));
+      color: #fff; font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 0.1rem;
+      box-shadow: 0 2px 8px rgba(30,58,138,0.2);
+    }
+    .step-text {
+      font-size: 0.9rem; color: var(--text-mid); line-height: 1.55;
+    }
+
+    .var-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .var-item {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      font-size: 0.87rem; color: var(--text-mid); line-height: 1.5;
+    }
+    .var-item i { color: var(--ocean); font-size: 0.75rem; margin-top: 0.25rem; flex-shrink: 0; }
+
+    /* ============================================================
+       7. PROYEK DUNIA & BERITA
+    ============================================================ */
+    .world-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    @media (max-width: 800px) { .world-grid { grid-template-columns: 1fr; } }
+
+    .map-placeholder {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #0f2851, #0c3b6e, #1d4ed8 60%, #0284c7);
+      padding: 2rem;
+      min-height: 340px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 1rem;
+      border: 1px solid rgba(14,165,233,0.15);
+      box-shadow: var(--shadow-lg);
+      position: relative; overflow: hidden;
+    }
+    .map-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 50px,
+        rgba(255,255,255,0.02) 50px, rgba(255,255,255,0.02) 51px
+      ),
+      repeating-linear-gradient(
+        90deg, transparent, transparent 50px,
+        rgba(255,255,255,0.02) 50px, rgba(255,255,255,0.02) 51px
+      );
+    }
+    .map-placeholder i { font-size: 3rem; color: rgba(255,255,255,0.6); z-index: 1; }
+    .map-placeholder h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; color: #fff; z-index: 1;
+    }
+    .map-placeholder p { font-size: 0.82rem; color: rgba(255,255,255,0.6); z-index: 1; max-width: 300px; }
+
+    /* OTEC World Projects dots */
+    .world-dots {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; z-index: 1;
+      margin-top: 0.5rem;
+    }
+    .world-dot {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 99px; padding: 0.3rem 0.7rem;
+      font-size: 0.7rem; color: rgba(255,255,255,0.8);
+      font-weight: 500;
+    }
+
+    /* News cards */
+    .news-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .news-card {
+      display: flex; gap: 1rem;
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .news-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(14,165,233,0.2); }
+    .news-img {
+      width: 100px; flex-shrink: 0;
+      background: linear-gradient(135deg, #dbeafe, #bae6fd);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .news-body { padding: 1rem 1rem 1rem 0; flex: 1; }
+    .news-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--ocean); font-weight: 500; display: block; margin-bottom: 0.35rem;
+    }
+    .news-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--text-dark); line-height: 1.4; margin-bottom: 0.35rem;
+    }
+    .news-date { font-size: 0.75rem; color: var(--text-muted); }
+    .news-cta { margin-top: 1.25rem; }
+
+    /* ============================================================
+       8. TENTANG PROYEK & TIM
+    ============================================================ */
+    .about-project-grid {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: flex-start;
+    }
+    @media (max-width: 900px) { .about-project-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .latar-belakang-box {
+      background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+      border: 1px solid rgba(14,165,233,0.15);
+      border-left: 4px solid var(--navy);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem; color: var(--text-mid); line-height: 1.75;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .team-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px)  { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px)  { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; } }
+
+    .team-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.5rem 1rem;
+      text-align: center; box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .team-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      overflow: hidden; margin: 0 auto 0.85rem;
+      border: 3px solid var(--ocean-light);
+      box-shadow: 0 4px 16px rgba(14,165,233,0.2);
+    }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .team-avatar-fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--navy), var(--ocean));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 700; color: #fff;
+    }
+    .team-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 0.2rem;
+    }
+    .team-nim {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; color: var(--text-muted);
+      letter-spacing: 1px; display: block; margin-bottom: 0.35rem;
+    }
+    .team-role {
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--ocean); background: rgba(14,165,233,0.08);
+      border: 1px solid rgba(14,165,233,0.15);
+      border-radius: 99px; padding: 0.2rem 0.65rem;
+      display: inline-block;
+    }
+
+    /* Kontak sidebar */
+    .kontak-box {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.75rem;
+      box-shadow: var(--shadow-md); min-width: 240px;
+    }
+    .kontak-box h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1.25rem;
+    }
+    .kontak-list { display: flex; flex-direction: column; gap: 0.85rem; }
+    .kontak-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.85rem; color: var(--text-mid); transition: color 0.2s;
+    }
+    .kontak-item:hover { color: var(--navy); }
+    .kontak-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, #EFF6FF, #E0F2FE);
+      border: 1px solid rgba(14,165,233,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--navy); flex-shrink: 0;
+    }
+
+    /* ============================================================
+       9. SDGs
+    ============================================================ */
+    .sdgs-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .sdgs-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .sdgs-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } }
+
+    .sdg-card {
+      border-radius: var(--radius-lg); padding: 1.75rem;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s;
+      min-height: 180px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .sdg-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-xl); }
+    .sdg-card::before {
+      content: ''; position: absolute; top: -20px; right: -20px;
+      width: 100px; height: 100px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .sdg-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem; font-weight: 800;
+      line-height: 1; color: rgba(255,255,255,0.2);
+      position: absolute; top: 0.75rem; left: 1rem;
+      pointer-events: none;
+    }
+    .sdg-body { position: relative; z-index: 1; }
+    .sdg-icon { font-size: 2rem; color: rgba(255,255,255,0.85); margin-bottom: 0.6rem; }
+    .sdg-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 700;
+      color: #fff; line-height: 1.35;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .sdg-desc { font-size: 0.72rem; color: rgba(255,255,255,0.75); margin-top: 0.35rem; line-height: 1.4; }
+    .sdg-tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.65rem; font-weight: 700;
+      color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.15);
+      border-radius: 99px; padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      align-self: flex-start; z-index: 1; position: relative;
+    }
+
+    /* ============================================================
+       10. FOOTER
+    ============================================================ */
+    .footer {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a 50%, #0c3b6e);
+      color: rgba(255,255,255,0.75);
+      padding: 2.5rem 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 2rem;
+    }
+    .footer-left, .footer-right { display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 0.25rem;
+    }
+    .social-icons { display: flex; gap: 0.6rem; }
+    .social-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.7); font-size: 0.85rem;
+      transition: all 0.2s; cursor: pointer;
+      text-decoration: none;
+    }
+    .social-icon:hover { background: rgba(14,165,233,0.25); color: #fff; border-color: rgba(14,165,233,0.4); }
+    .footer-right-content { display: flex; flex-direction: column; gap: 0.4rem; }
+    .footer-link {
+      font-size: 0.82rem; color: rgba(255,255,255,0.65);
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s; cursor: pointer;
+    }
+    .footer-link:hover { color: var(--ocean-light); }
+    .footer-link i { color: var(--ocean); width: 14px; }
+    .footer-copy {
+      border-top: 1px solid rgba(255,255,255,0.08); margin-top: 1.5rem; padding-top: 1.5rem;
+      text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.4);
+    }
+
+    /* ============================================================
+       ANIMATIONS & UTILITIES
+    ============================================================ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .animate-in {
+      opacity: 0;
+      animation: fadeInUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.35s; }
+    .delay-4 { animation-delay: 0.5s; }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Horizontal divider */
+    .divider {
+      height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ============================================================
+       INTRO VIDEO SCREEN
+    ============================================================ */
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #050e1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+    }
+    #intro-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Fullscreen video */
+    #intro-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    #intro-video.loaded { opacity: 1; }
+
+    /* Dark vignette overlay on video */
+    .intro-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(5,14,26,0.65) 100%),
+        linear-gradient(to bottom, rgba(5,14,26,0.35) 0%, transparent 25%, transparent 70%, rgba(5,14,26,0.8) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Particle / shimmer dots */
+    .intro-particles {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .intro-particles .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(14,165,233,0.6);
+      animation: particleFloat linear infinite;
+    }
+    @keyframes particleFloat {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.2); }
+    }
+
+    /* Top-right logo watermark */
+    .intro-logo-topright {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      z-index: 5;
+      text-align: right;
+      pointer-events: none;
+      opacity: 0;
+      animation: introLogoReveal 1.2s ease 0.4s forwards;
+    }
+    @keyframes introLogoReveal {
+      from { opacity: 0; transform: translateY(-8px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .intro-logo-topright img.ilc-logo-img {
+      height: 48px;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5)) brightness(1.1);
+      display: block;
+    }
+
+    /* Bottom HUD bar */
+    .intro-hud {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 4;
+      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 5vw, 3.5rem);
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 1.5rem;
+    }
+
+    /* Progress bar */
+    .intro-progress-wrap {
+      flex: 1;
+    }
+    .intro-progress-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 0.5rem;
+      display: flex; justify-content: space-between;
+    }
+    .intro-progress-bar {
+      height: 3px; background: rgba(255,255,255,0.12);
+      border-radius: 2px; overflow: hidden;
+    }
+    .intro-progress-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--navy), var(--ocean), var(--teal));
+      border-radius: 2px;
+      transition: width 0.25s linear;
+    }
+
+    /* HUD right side: mute + skip */
+    .intro-hud-right {
+      display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+    }
+    .intro-mute-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.8); font-size: 0.85rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .intro-mute-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+    .intro-skip-btn {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 99px;
+      padding: 0.55rem 1.2rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      cursor: pointer; transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .intro-skip-btn:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.4);
+      color: #fff;
+    }
+    /* Circular countdown ring around skip */
+    .intro-skip-countdown {
+      width: 18px; height: 18px; position: relative; flex-shrink: 0;
+    }
+    .intro-skip-countdown svg {
+      transform: rotate(-90deg);
+      width: 18px; height: 18px;
+    }
+    .intro-skip-countdown circle {
+      fill: none;
+      stroke: rgba(255,255,255,0.3);
+      stroke-width: 2;
+    }
+    .intro-skip-countdown .progress-ring {
+      stroke: rgba(255,255,255,0.9);
+      stroke-dasharray: 45;
+      stroke-dashoffset: 45;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    /* Scanline effect overlay for cinematic feel */
+    .intro-scanlines {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      opacity: 0.4;
+    }
+
+    /* Body locked while intro shows */
+    body.intro-active {
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="intro-active">
+
+<!-- ========================================================
+     INTRO VIDEO SCREEN
+======================================================== -->
+<div id="intro-screen" role="dialog" aria-label="Intro myOTEC" aria-modal="true">
+  <!-- Fullscreen video -->
+  <video id="intro-video" preload="auto" playsinline muted loop
+    aria-hidden="true" tabindex="-1">
+    <source src="assets/intro_myOTEC.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Overlays -->
+  <div class="intro-vignette" aria-hidden="true"></div>
+  <div class="intro-scanlines" aria-hidden="true"></div>
+
+  <!-- Floating particles -->
+  <div class="intro-particles" aria-hidden="true" id="intro-particles"></div>
+
+  <!-- Top-Right Logo -->
+  <div class="intro-logo-topright">
+    <img class="ilc-logo-img" src="assets/dark_copy_horizontal.png" alt="myOTEC" />
+  </div>
+
+  <!-- Bottom HUD -->
+  <div class="intro-hud">
+    <!-- Progress bar -->
+    <div class="intro-progress-wrap">
+      <div class="intro-progress-label">
+        <span>INTRO myOTEC</span>
+        <span id="intro-time-left">0:00</span>
+      </div>
+      <div class="intro-progress-bar">
+        <div class="intro-progress-fill" id="intro-progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Mute + Skip -->
+    <div class="intro-hud-right">
+      <button class="intro-mute-btn" id="intro-mute-btn" aria-label="Toggle suara">
+        <i class="fa-solid fa-volume-xmark" id="intro-mute-icon"></i>
+      </button>
+      <button class="intro-skip-btn" id="intro-skip-btn" aria-label="Lewati intro">
+        <span class="intro-skip-countdown" id="skip-countdown">
+          <svg viewBox="0 0 18 18">
+            <circle cx="9" cy="9" r="7"/>
+            <circle cx="9" cy="9" r="7" class="progress-ring" id="skip-ring"/>
+          </svg>
+        </span>
+        <span id="skip-label">Lewati</span>
+        <i class="fa-solid fa-forward"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================
+     NAVBAR
+======================================================== -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+  <div class="navbar-inner">
+    <!-- Logo + Hamburger -->
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <button class="nav-hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="nav-logo" aria-label="myOTEC Beranda">
+        <img src="assets/dark_copy_horizontal.png" alt="myOTEC" style="height:44px; display:block;" />
+      </a>
+    </div>
+    <!-- Nav Links -->
+    <nav class="nav-links" aria-label="Menu utama">
+      <a href="#beranda" class="active">Beranda</a>
+      <a href="#tentang-otec">Tentang OTEC</a>
+      <a href="#metodologi">Data &amp; Metodologi</a>
+      <a href="#berita">Berita &amp; Update</a>
+      <a href="#tentang-proyek">Kontak</a>
+      <a href="#tentang-proyek">Tentang Proyek</a>
+    </nav>
+  </div>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="#beranda" role="menuitem">Beranda</a>
+    <a href="#tentang-otec" role="menuitem">Tentang OTEC</a>
+    <a href="#metodologi" role="menuitem">Data &amp; Metodologi</a>
+    <a href="#berita" role="menuitem">Berita &amp; Update</a>
+    <a href="#tentang-proyek" role="menuitem">Kontak</a>
+    <a href="#tentang-proyek" role="menuitem">Tentang Proyek</a>
+  </div>
+</nav>
+
+<!-- ========================================================
+     HERO SECTION
+======================================================== -->
+<section class="hero" id="beranda" aria-label="Halaman utama">
+  <div class="hero-blob" aria-hidden="true"></div>
+
+  <!-- Ocean wave decoration -->
+  <div class="hero-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#F8FAFC" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left: Text -->
+        <div class="hero-text">
+          <div class="hero-eyebrow animate-in">Platform Energi Terbarukan Laut</div>
+          <h1 class="hero-title animate-in delay-1">
+            <span class="highlight">Ocean Thermal</span><br/>
+            Energy Conversion<br/>
+            <span style="color:var(--text-mid);font-size:0.55em;font-weight:600;letter-spacing:0.1em;">(OTEC)</span>
+          </h1>
+          <p class="hero-subtitle animate-in delay-2">
+            Platform informasi potensi energi laut berbasis perbedaan suhu laut untuk mendorong energi bersih, stabil, dan berkelanjutan bagi Indonesia.
+          </p>
+          <div class="hero-cta animate-in delay-3">
+            <a href="dashboard.html" class="btn btn-primary" id="btn-hero-dashboard">
+              <i class="fa-solid fa-gauge-high"></i>
+              Dashboard
+            </a>
+            <a href="#tentang-otec" class="btn btn-secondary" id="btn-hero-pelajari">
+              <i class="fa-solid fa-circle-info"></i>
+              Pelajari myOTEC
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="hero-visual animate-in delay-2">
+          <div class="hero-img-wrap">
+            <img src="assets/hero_ocean_bg.png" alt="Lautan Indonesia — potensi OTEC" loading="eager" />
+            <div class="hero-img-overlay"></div>
+          </div>
+          <!-- Float Badge TL -->
+          <div class="hero-badge badge-tl">
+            <div class="badge-icon navy-bg"><i class="fa-solid fa-bolt" style="color:#fff;font-size:0.9rem;"></i></div>
+            <div class="badge-text">
+              <div class="badge-val">2.5 GW</div>
+              <span class="badge-lbl">Potensi Nasional</span>
+            </div>
+          </div>
+          <!-- Float Badge BR -->
+          <div class="hero-badge badge-br">
+            <div class="badge-icon ocean-bg"><i class="fa-solid fa-temperature-half" style="color:#fff;font-size:0.9rem;"></i></div>
+            <div class="badge-text">
+              <div class="badge-val">23.1 °C</div>
+              <span class="badge-lbl">ΔT Maksimum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     KPI RIBBON
+======================================================== -->
+<section class="kpi-ribbon" aria-label="Statistik kunci">
+  <div class="container">
+    <div class="kpi-grid" role="list">
+      <div class="kpi-item reveal" role="listitem">
+        <div class="kpi-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="kpi-val">7</div>
+        <div class="kpi-label">Lokasi Potensi</div>
+        <div class="kpi-sub">di seluruh Indonesia</div>
+      </div>
+      <div class="kpi-item reveal" role="listitem">
+        <div class="kpi-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="kpi-val">2.5 GW</div>
+        <div class="kpi-label">Potensi Energi Nasional</div>
+        <div class="kpi-sub">estimasi total</div>
+      </div>
+      <div class="kpi-item reveal" role="listitem">
+        <div class="kpi-icon"><i class="fa-solid fa-thermometer-half"></i></div>
+        <div class="kpi-val">23.1 °C</div>
+        <div class="kpi-label">ΔT Maksimum</div>
+        <div class="kpi-sub">perbedaan rata-rata</div>
+      </div>
+      <div class="kpi-item reveal" role="listitem">
+        <div class="kpi-icon"><i class="fa-solid fa-cloud"></i></div>
+        <div class="kpi-val">0.8 Dton</div>
+        <div class="kpi-label">Emisi CO₂</div>
+        <div class="kpi-sub">sangat rendah</div>
+      </div>
+      <div class="kpi-item reveal" role="listitem">
+        <div class="kpi-icon"><i class="fa-solid fa-droplet"></i></div>
+        <div class="kpi-val">1.2 Jt</div>
+        <div class="kpi-label">Air Tawar</div>
+        <div class="kpi-sub">m³ per tahun</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     4. TENTANG OTEC
+======================================================== -->
+<section class="section" id="tentang-otec" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <!-- Left: Video Placeholder -->
+      <div class="reveal">
+        <div class="video-placeholder" id="video-container" role="region" aria-label="Video penjelasan OTEC">
+          <video id="otec-video" preload="metadata" loop muted poster="assets/hero_ocean_bg.png">
+            <source src="assets/intro_myOTEC.mp4" type="video/mp4" />
+          </video>
+          <div class="video-overlay" id="video-overlay">
+            <button class="play-btn" id="play-btn" aria-label="Putar video intro myOTEC">
+              <i class="fa-solid fa-play" id="play-icon"></i>
+            </button>
+          </div>
+          <span class="video-label">Intro myOTEC</span>
+        </div>
+      </div>
+
+      <!-- Right: Content -->
+      <div class="about-right reveal">
+        <div>
+          <span class="section-label"><i class="fa-solid fa-waves"></i> Tentang Teknologi</span>
+          <h2 class="section-title" id="about-heading">Tentang <span class="text-navy">OTEC</span></h2>
+        </div>
+
+        <div class="about-text-block">
+          <h3>Apa itu OTEC?</h3>
+          <p>OTEC (Ocean Thermal Energy Conversion) adalah teknologi pembangkit listrik yang memanfaatkan perbedaan suhu antara air laut permukaan yang hangat dan air laut dalam yang dingin. Perbedaan suhu (ΔT) minimal 20°C diperlukan agar sistem beroperasi secara efisien. Indonesia, sebagai negara kepulauan tropis, memiliki potensi OTEC yang sangat besar di berbagai wilayah perairannya.</p>
+        </div>
+
+        <!-- Cara Kerja Cards -->
+        <div class="cara-kerja-card">
+          <div class="cara-kerja-icon"><i class="fa-solid fa-arrows-up-down"></i></div>
+          <div class="cara-kerja-text">
+            <h4>Prinsip Kerja Termal</h4>
+            <p>Air hangat permukaan (25–30°C) menguapkan fluida kerja. Uap memutar turbin. Air dingin dari kedalaman 800–1000m mengondensasikan uap kembali.</p>
+          </div>
+        </div>
+        <div class="cara-kerja-card">
+          <div class="cara-kerja-icon" style="background:linear-gradient(135deg,var(--ocean),var(--teal));"><i class="fa-solid fa-diagram-project"></i></div>
+          <div class="cara-kerja-text">
+            <h4>Sistem Closed-Cycle</h4>
+            <p>Menggunakan fluida dengan titik didih rendah (amonia/propana) dalam siklus tertutup untuk efisiensi konversi energi termal yang optimal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     5. MANFAAT OTEC
+======================================================== -->
+<section class="section section-alt" id="manfaat" aria-labelledby="benefits-heading">
+  <div class="container">
+    <div class="benefits-header reveal">
+      <span class="section-label"><i class="fa-solid fa-star"></i> Keunggulan</span>
+      <h2 class="section-title" id="benefits-heading">
+        Manfaat <span class="text-navy">OTEC</span>
+        <span class="tahukah-bubble"><i class="fa-solid fa-lightbulb"></i> Tahukah kamu?</span>
+      </h2>
+      <p class="section-desc">OTEC bukan sekadar pembangkit listrik — ia adalah sistem energi multifungsi yang memberikan berbagai manfaat sekaligus.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);">
+          <i class="fa-solid fa-bolt" style="color:var(--navy);"></i>
+        </div>
+        <h4>Energi Bersih 24 Jam Non-Stop</h4>
+        <p>Beroperasi terus-menerus tanpa bergantung cuaca, angin, atau sinar matahari.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon" style="background:linear-gradient(135deg,#E0F2FE,#BAE6FD);">
+          <i class="fa-solid fa-droplet" style="color:var(--ocean);"></i>
+        </div>
+        <h4>Air Tawar</h4>
+        <p>Proses kondensasi menghasilkan air tawar murni sebagai produk sampingan berharga.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon" style="background:linear-gradient(135deg,#ECFDF5,#D1FAE5);">
+          <i class="fa-solid fa-fish" style="color:#059669;"></i>
+        </div>
+        <h4>Perikanan &amp; Akuakultur</h4>
+        <p>Air dingin kaya nutrien dari laut dalam mempercepat pertumbuhan ikan dan alga.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA);">
+          <i class="fa-solid fa-wind" style="color:#EA580C;"></i>
+        </div>
+        <h4>Pendingin Alami</h4>
+        <p>Air laut dalam yang dingin dapat digunakan langsung untuk sistem pendingin gedung.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon" style="background:linear-gradient(135deg,#F0FDF4,#BBF7D0);">
+          <i class="fa-solid fa-leaf" style="color:#16A34A;"></i>
+        </div>
+        <h4>Emisi Rendah</h4>
+        <p>Hampir nol emisi karbon — mendukung target net-zero Indonesia 2060.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     6. DATA & METODOLOGI
+======================================================== -->
+<section class="section" id="metodologi" aria-labelledby="metode-heading">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.5rem;">
+      <span class="section-label"><i class="fa-solid fa-database"></i> Sumber &amp; Metode</span>
+      <h2 class="section-title" id="metode-heading">Data &amp; <span class="text-navy">Metodologi</span></h2>
+    </div>
+
+    <div class="metode-grid">
+      <!-- Kiri -->
+      <div class="reveal">
+        <div class="metode-subtitle"><i class="fa-solid fa-satellite-dish"></i> Sumber Data</div>
+        <div class="source-chips">
+          <div class="source-chip"><i class="fa-solid fa-globe"></i> Copernicus Marine Service</div>
+          <div class="source-chip"><i class="fa-solid fa-mountain-sun"></i> BATNAS (BIG)</div>
+          <div class="source-chip"><i class="fa-solid fa-satellite"></i> NOAA GEBCO</div>
+        </div>
+
+        <div class="metode-subtitle" style="margin-top:1.5rem;"><i class="fa-solid fa-list-ol"></i> Metode</div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">Pengumpulan data parameter oseanografi multi-variabel dari berbagai sumber</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">Pengolahan &amp; interpolasi data spasial menggunakan GeoPandas &amp; xarray</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">Perhitungan ΔT (perbedaan suhu antara permukaan dan kedalaman)</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">Estimasi potensi energi berdasarkan formula efisiensi Carnot OTEC</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-text">Klasifikasi kelayakan lokasi menggunakan Multi-Criteria Decision Analysis (MCDA)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: Variabel -->
+      <div class="reveal">
+        <div class="metode-subtitle"><i class="fa-solid fa-chart-bar"></i> Variabel yang Dianalisis</div>
+        <div class="var-list">
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Suhu potensial air laut (Surface &amp; Deep)</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Batimetri (kedalaman laut)</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Salinitas air laut</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Kecepatan arus zonal &amp; meridional</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Arah datang gelombang permukaan laut</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Periode rata-rata gelombang permukaan laut dari momen frekuensi invers kepadatan spektral varians</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Periode gelombang permukaan laut pada kepadatan spektral varians maksimum</div>
+          <div class="var-item"><i class="fa-solid fa-circle-dot"></i>Tinggi signifikan gelombang permukaan laut</div>
+        </div>
+
+        <!-- Mini stat cards -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-top:1.75rem;">
+          <div style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1px solid rgba(14,165,233,0.15);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--navy);">8</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Variabel Oseanografi</div>
+          </div>
+          <div style="background:linear-gradient(135deg,#F0FDFA,#CCFBF1);border:1px solid rgba(16,185,129,0.15);border-radius:var(--radius-md);padding:1rem;text-align:center;box-shadow:var(--shadow-sm);">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:#059669;">13</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">Lokasi Target</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     7. PROYEK OTEC DUNIA & BERITA
+======================================================== -->
+<section class="section section-alt" id="berita" aria-labelledby="world-heading">
+  <div class="container">
+    <div class="world-grid">
+      <!-- Kiri: Peta Dunia -->
+      <div class="reveal">
+        <span class="section-label"><i class="fa-solid fa-earth-asia"></i> Proyek Global</span>
+        <h2 class="section-title" id="world-heading">Proyek OTEC<br/><span class="text-navy">di Dunia</span></h2>
+        <p class="section-desc" style="margin-bottom:1.5rem;">Berbagai negara telah mengimplementasikan dan mengembangkan teknologi OTEC. Berikut peta sebaran proyeknya.</p>
+        <div class="map-placeholder">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <h4>Peta Interaktif Proyek OTEC Dunia</h4>
+          <p>Cari koordinat peta proyek OTEC dunia &amp; Indonesia — min. 10 lokasi proyek</p>
+          <div class="world-dots">
+            <span class="world-dot">🇯🇵 Jepang</span>
+            <span class="world-dot">🇺🇸 Hawaii, AS</span>
+            <span class="world-dot">🇳🇴 Norwegia</span>
+            <span class="world-dot">🇫🇷 Martinique</span>
+            <span class="world-dot">🇮🇳 India</span>
+            <span class="world-dot">🇰🇷 Korea Selatan</span>
+            <span class="world-dot">🇳🇱 Belanda (Curaçao)</span>
+            <span class="world-dot">🇮🇩 Bali Selatan</span>
+            <span class="world-dot">🇮🇩 Laut Banda</span>
+            <span class="world-dot">🇮🇩 Sulawesi Utara</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: Berita -->
+      <div class="reveal">
+        <span class="section-label"><i class="fa-solid fa-newspaper"></i> Terkini</span>
+        <h2 class="section-title">Berita &amp; <span class="text-navy">Update</span></h2>
+
+        <div class="news-list">
+          <div class="news-card">
+            <div class="news-img">🌊</div>
+            <div class="news-body">
+              <span class="news-tag">Energi Laut · 2025</span>
+              <div class="news-title">Jepang Luncurkan Pembangkit OTEC Skala Komersial Pertama di Okinawa</div>
+              <div class="news-date"><i class="fa-regular fa-calendar" style="color:var(--ocean);margin-right:0.3rem;"></i>Maret 2025</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img">⚡</div>
+            <div class="news-body">
+              <span class="news-tag">Kebijakan · Indonesia</span>
+              <div class="news-title">Pemerintah Indonesia Masukkan OTEC dalam Roadmap Energi Baru Terbarukan 2060</div>
+              <div class="news-date"><i class="fa-regular fa-calendar" style="color:var(--ocean);margin-right:0.3rem;"></i>Januari 2025</div>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img">🔬</div>
+            <div class="news-body">
+              <span class="news-tag">Riset · ITB</span>
+              <div class="news-title">Tim Peneliti ITB Publikasikan Kajian Potensi OTEC di 13 Perairan Strategis Indonesia</div>
+              <div class="news-date"><i class="fa-regular fa-calendar" style="color:var(--ocean);margin-right:0.3rem;"></i>Juni 2025</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="news-cta">
+          <a href="#" class="btn btn-ocean" style="font-size:0.85rem;padding:0.7rem 1.5rem;" id="btn-lihat-berita">
+            <i class="fa-solid fa-arrow-right"></i> Lihat Semua Berita
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     8. TENTANG PROYEK & TIM
+======================================================== -->
+<section class="section" id="tentang-proyek" aria-labelledby="project-heading">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2rem;">
+      <span class="section-label"><i class="fa-solid fa-users"></i> Tentang Kami</span>
+      <h2 class="section-title" id="project-heading">Tentang <span class="text-navy">Proyek</span></h2>
+    </div>
+
+    <div class="about-project-grid">
+      <!-- Kiri: Latar belakang + Tim -->
+      <div>
+        <!-- Latar Belakang -->
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:0.85rem;display:flex;align-items:center;gap:0.5rem;">
+          <i class="fa-solid fa-book-open" style="color:var(--ocean);"></i> Latar Belakang
+        </h3>
+        <div class="latar-belakang-box reveal">
+          Dashboard ini dibuat untuk memenuhi tugas pengganti Ujian Akhir Semester (UAS) mata kuliah Analisis Data Oseanografi. Dashboard ini menyajikan informasi potensi energi OTEC di beberapa perairan Indonesia yang mudah diakses untuk semua kalangan guna mendukung transisi energi bersih dan pembangunan berkelanjutan.
+        </div>
+
+        <!-- Tim Penyusun -->
+        <h3 style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+          <i class="fa-solid fa-user-group" style="color:var(--ocean);"></i> Tim Penyusun
+        </h3>
+        <div class="team-grid reveal">
+          <div class="team-card">
+            <div class="team-avatar">
+              <div class="team-avatar-fallback">D</div>
+            </div>
+            <div class="team-name">Dzaky Zah Y.</div>
+            <span class="team-nim">12523059</span>
+            <span class="team-role">Lead Developer</span>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">
+              <div class="team-avatar-fallback" style="background:linear-gradient(135deg,#0EA5E9,#06B6D4);">A</div>
+            </div>
+            <div class="team-name">Anggota 2</div>
+            <span class="team-nim">XXXXXXXX</span>
+            <span class="team-role">Data Analyst</span>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">
+              <div class="team-avatar-fallback" style="background:linear-gradient(135deg,#059669,#10B981);">B</div>
+            </div>
+            <div class="team-name">Anggota 3</div>
+            <span class="team-nim">XXXXXXXX</span>
+            <span class="team-role">GIS Specialist</span>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">
+              <div class="team-avatar-fallback" style="background:linear-gradient(135deg,#7C3AED,#A78BFA);">C</div>
+            </div>
+            <div class="team-name">Anggota 4</div>
+            <span class="team-nim">XXXXXXXX</span>
+            <span class="team-role">UI Designer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: Kontak -->
+      <div class="kontak-box reveal">
+        <h3><i class="fa-solid fa-address-card" style="color:var(--ocean);margin-right:0.4rem;"></i>Kontak</h3>
+        <div class="kontak-list">
+          <div class="kontak-item">
+            <div class="kontak-icon"><i class="fa-solid fa-envelope"></i></div>
+            <span>myotec@itb.ac.id</span>
+          </div>
+          <div class="kontak-item">
+            <div class="kontak-icon"><i class="fa-brands fa-whatsapp" style="color:#25D366;"></i></div>
+            <span>+62 xxx-xxxx-xxxx</span>
+          </div>
+          <div class="kontak-item">
+            <div class="kontak-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <span>Institut Teknologi Bandung, Jawa Barat</span>
+          </div>
+          <div class="kontak-item">
+            <div class="kontak-icon"><i class="fa-brands fa-instagram" style="color:#E1306C;"></i></div>
+            <span>@myotec.itb</span>
+          </div>
+          <div class="kontak-item">
+            <div class="kontak-icon"><i class="fa-brands fa-youtube" style="color:#FF0000;"></i></div>
+            <span>myOTEC Channel</span>
+          </div>
+        </div>
+
+        <!-- Quick action -->
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+          <a href="dashboard.html" class="btn btn-primary" style="width:100%;justify-content:center;" id="btn-contact-dashboard">
+            <i class="fa-solid fa-gauge-high"></i>Buka Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ========================================================
+     9. SDGs
+======================================================== -->
+<section class="section section-alt" id="sdgs" aria-labelledby="sdgs-heading">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:2.5rem;">
+      <span class="section-label"><i class="fa-solid fa-globe"></i> Sustainable Development Goals</span>
+      <h2 class="section-title" id="sdgs-heading">Mendukung <span class="text-navy">SDGs</span></h2>
+      <p class="section-desc" style="margin:0 auto;">myOTEC berkontribusi langsung pada empat tujuan pembangunan berkelanjutan PBB.</p>
+    </div>
+
+    <div class="sdgs-grid">
+      <!-- SDG 7 -->
+      <div class="sdg-card reveal" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">
+        <div class="sdg-num">7</div>
+        <div class="sdg-body">
+          <div class="sdg-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="sdg-title">Affordable Clean Energy</div>
+          <div class="sdg-desc">Energi bersih, terjangkau, dan berkelanjutan berbasis sumber daya laut untuk semua.</div>
+        </div>
+        <span class="sdg-tag"><i class="fa-solid fa-check"></i> SDG 7</span>
+      </div>
+
+      <!-- SDG 9 -->
+      <div class="sdg-card reveal" style="background:linear-gradient(135deg,#F97316,#FB923C);">
+        <div class="sdg-num">9</div>
+        <div class="sdg-body">
+          <div class="sdg-icon"><i class="fa-solid fa-industry"></i></div>
+          <div class="sdg-title">Industry, Innovation &amp; Infrastructure</div>
+          <div class="sdg-desc">Mendorong inovasi teknologi energi laut dan infrastruktur kelautan yang berkelanjutan.</div>
+        </div>
+        <span class="sdg-tag"><i class="fa-solid fa-check"></i> SDG 9</span>
+      </div>
+
+      <!-- SDG 13 -->
+      <div class="sdg-card reveal" style="background:linear-gradient(135deg,#10B981,#34D399);">
+        <div class="sdg-num">13</div>
+        <div class="sdg-body">
+          <div class="sdg-icon"><i class="fa-solid fa-earth-americas"></i></div>
+          <div class="sdg-title">Climate Action</div>
+          <div class="sdg-desc">Mengurangi emisi karbon dan mendukung aksi iklim melalui energi terbarukan berbasis laut.</div>
+        </div>
+        <span class="sdg-tag"><i class="fa-solid fa-check"></i> SDG 13</span>
+      </div>
+
+      <!-- SDG 14 -->
+      <div class="sdg-card reveal" style="background:linear-gradient(135deg,#0EA5E9,#38BDF8);">
+        <div class="sdg-num">14</div>
+        <div class="sdg-body">
+          <div class="sdg-icon"><i class="fa-solid fa-fish"></i></div>
+          <div class="sdg-title">Life Below Water</div>
+          <div class="sdg-desc">Pemanfaatan sumber daya laut yang bertanggung jawab tanpa merusak ekosistem bawah laut.</div>
+        </div>
+        <span class="sdg-tag"><i class="fa-solid fa-check"></i> SDG 14</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     10. FOOTER
+======================================================== -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <!-- Left: Ikuti Kami -->
+      <div class="footer-left">
+        <a href="index.html" style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.5rem;">
+          <div class="nav-logo-icon" style="width:30px;height:30px;border-radius:8px;font-size:0.85rem;"><i class="fa-solid fa-water"></i></div>
+          <span style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1rem;color:#fff;">my OTEC</span>
+        </a>
+        <div class="footer-label">Ikuti Kami</div>
+        <div class="social-icons">
+          <a href="#" class="social-icon" aria-label="Instagram myOTEC"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="X (Twitter) myOTEC"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn myOTEC"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Right: Links -->
+      <div class="footer-right">
+        <div class="footer-right-content">
+          <div class="footer-label">Sumber Daya</div>
+          <a href="dashboard.html" class="footer-link"><i class="fa-solid fa-gauge-high"></i> Buka Dashboard</a>
+          <a href="analysis.html" class="footer-link"><i class="fa-solid fa-chart-line"></i> Analisis Data</a>
+          <a href="#" class="footer-link"><i class="fa-solid fa-download"></i> Download Data</a>
+          <a href="#" class="footer-link"><i class="fa-solid fa-building"></i> Disponsori Pusat Data &amp; Informasi KKP</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-copy">
+      <p>© 2025 myOTEC — Ocean Thermal Energy Platform. Dibuat untuk UAS Analisis Data Oseanografi, Institut Teknologi Bandung.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ========================================================
+     JAVASCRIPT
+======================================================== -->
+<script>
+/* ── Navbar scroll effect ── */
+(function () {
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(255,255,255,0.97)';
+      navbar.style.boxShadow = '0 2px 24px rgba(0,0,0,0.09)';
+    } else {
+      navbar.style.background = 'rgba(255,255,255,0.9)';
+      navbar.style.boxShadow = '0 1px 20px rgba(0,0,0,0.06)';
+    }
+  }, { passive: true });
+})();
+
+/* ── Hamburger menu ── */
+(function () {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  let open = false;
+  btn.addEventListener('click', () => {
+    open = !open;
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+    // Animate bars
+    const spans = btn.querySelectorAll('span');
+    if (open) {
+      spans[0].style.cssText = 'transform:rotate(45deg) translate(4px,4px)';
+      spans[1].style.cssText = 'opacity:0;transform:scaleX(0)';
+      spans[2].style.cssText = 'transform:rotate(-45deg) translate(4px,-4px)';
+    } else {
+      spans.forEach(s => s.style.cssText = '');
+    }
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      open = false;
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+      btn.querySelectorAll('span').forEach(s => s.style.cssText = '');
+    });
+  });
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target) && open) {
+      open = false;
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+      btn.querySelectorAll('span').forEach(s => s.style.cssText = '');
+    }
+  });
+})();
+
+/* ── Video play/pause ── */
+(function () {
+  const container = document.getElementById('video-container');
+  const video = document.getElementById('otec-video');
+  const overlay = document.getElementById('video-overlay');
+  const icon = document.getElementById('play-icon');
+  if (!video) return;
+  let playing = false;
+  container.addEventListener('click', () => {
+    if (playing) {
+      video.pause();
+      overlay.style.background = 'rgba(0,0,0,0.25)';
+      icon.className = 'fa-solid fa-play';
+    } else {
+      video.play().catch(() => {});
+      overlay.style.background = 'rgba(0,0,0,0.06)';
+      icon.className = 'fa-solid fa-pause';
+    }
+    playing = !playing;
+  });
+  video.addEventListener('ended', () => {
+    playing = false;
+    overlay.style.background = 'rgba(0,0,0,0.25)';
+    icon.className = 'fa-solid fa-play';
+  });
+})();
+
+/* ── Scroll reveal ── */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger siblings
+        const siblings = Array.from(entry.target.parentElement?.children || []).filter(c => c.classList.contains('reveal'));
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = `${idx * 0.08}s`;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+})();
+
+/* ── Smooth scrolling for anchor links ── */
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 80; // navbar height
+        window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+
+/* ── Active nav link on scroll ── */
+(function () {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    links.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+  }, { passive: true });
+})();
+
+/* ── KPI Counter animation ── */
+(function () {
+  const kpiObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const items = entry.target.querySelectorAll('.kpi-val');
+        items.forEach(item => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(12px)';
+          setTimeout(() => {
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, 200);
+        });
+        kpiObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const ribbon = document.querySelector('.kpi-ribbon');
+  if (ribbon) kpiObs.observe(ribbon);
+})();
+</script>
+
+<!-- ========================================================
+     INTRO VIDEO SCRIPT
+======================================================== -->
+<script>
+(function () {
+  const screen    = document.getElementById('intro-screen');
+  const video     = document.getElementById('intro-video');
+  const fill      = document.getElementById('intro-progress-fill');
+  const timeLeft  = document.getElementById('intro-time-left');
+  const muteBtn   = document.getElementById('intro-mute-btn');
+  const muteIcon  = document.getElementById('intro-mute-icon');
+  const skipBtn   = document.getElementById('intro-skip-btn');
+  const skipLabel = document.getElementById('skip-label');
+  const skipRing  = document.getElementById('skip-ring');
+  const particles = document.getElementById('intro-particles');
+
+  /* ── Spawn floating particles ── */
+  const RING_CIRC = 2 * Math.PI * 7;
+  // Skip langsung aktif sejak awal
+  skipRing.style.strokeDasharray = RING_CIRC;
+  skipRing.style.strokeDashoffset = 0; // Ring penuh = siap skip
+  skipLabel.textContent = 'Lewati';
+  skipBtn.style.background = 'rgba(14,165,233,0.2)';
+  skipBtn.style.borderColor = 'rgba(14,165,233,0.45)';
+
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    const dur  = Math.random() * 12 + 8;
+    const delay = Math.random() * dur;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random() * 100}%;
+      bottom: ${Math.random() * 30}%;
+      animation-duration: ${dur}s;
+      animation-delay: -${delay}s;
+      opacity: ${Math.random() * 0.5 + 0.1};
+      background: rgba(${Math.random()>0.5?'14,165,233':'30,58,138'}, ${Math.random()*0.5+0.3});
+    `;
+    particles.appendChild(p);
+  }
+
+  /* ── Dismiss intro: fade out & unlock body ── */
+  function dismissIntro() {
+    screen.classList.add('hidden');
+    document.body.classList.remove('intro-active');
+    video.pause();
+    screen.addEventListener('transitionend', () => screen.remove(), { once: true });
+  }
+
+  /* ── Loop counter: auto-skip setelah 2x putar ── */
+  let loopCount = 0;
+  // Hapus atribut loop dari video agar bisa detect ended
+  video.removeAttribute('loop');
+
+  video.addEventListener('ended', () => {
+    loopCount++;
+    if (loopCount >= 2) {
+      // Sudah 2x putar → auto-dismiss
+      dismissIntro();
+    } else {
+      // Putar ulang (loop ke-2)
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  });
+
+  /* ── Skip button: selalu aktif ── */
+  skipBtn.addEventListener('click', dismissIntro);
+
+  /* ── Mute toggle ── */
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    muteIcon.className = video.muted
+      ? 'fa-solid fa-volume-xmark'
+      : 'fa-solid fa-volume-high';
+  });
+
+  /* ── Video progress bar & time display ── */
+  function updateProgress() {
+    if (!video.duration) return;
+    const pct = (video.currentTime / video.duration) * 100;
+    fill.style.width = pct + '%';
+    const rem = Math.max(0, video.duration - video.currentTime);
+    const m = Math.floor(rem / 60);
+    const s = Math.floor(rem % 60).toString().padStart(2, '0');
+    timeLeft.textContent = `${m}:${s}`;
+  }
+  video.addEventListener('timeupdate', updateProgress);
+
+  /* ── Make entire screen clickable to skip ── */
+  screen.addEventListener('click', (e) => {
+    if (e.target.closest('#intro-mute-btn')) return;
+    dismissIntro();
+  });
+
+  /* ── Try to play ── */
+  function tryPlay() {
+    video.play().then(() => {
+      video.classList.add('loaded');
+    }).catch(() => {
+      video.classList.add('loaded');
+      // Autoplay blocked → auto-dismiss setelah 5s
+      setTimeout(dismissIntro, 5000);
+    });
+  }
+
+  /* ── Load video ── */
+  if (video.readyState >= 2) {
+    tryPlay();
+  } else {
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+    video.addEventListener('canplay', tryPlay, { once: true });
+    setTimeout(() => {
+      if (video.paused) tryPlay();
+    }, 2000);
+  }
+
+  /* ── Keyboard: Escape atau Space untuk skip (langsung aktif) ── */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === ' ') {
+      e.preventDefault();
+      dismissIntro();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

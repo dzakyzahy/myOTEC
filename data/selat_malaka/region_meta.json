@@ -1,0 +1,40 @@
+{
+  "id": "selat_malaka",
+  "name": "Selat Malaka",
+  "center": [
+    3.0,
+    100.5
+  ],
+  "bounds": [
+    97.0,
+    0.0,
+    104.0,
+    6.0
+  ],
+  "delta_t": 18.5,
+  "sst_avg": 29.0,
+  "max_depth": "<200m",
+  "status": "medium",
+  "status_text": "KURANG POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "bathy_meta.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json",
+    "waves_rose.json",
+    "waves_spectrum.json"
+  ]
+}

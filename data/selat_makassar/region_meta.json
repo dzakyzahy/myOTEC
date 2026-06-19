@@ -1,0 +1,39 @@
+{
+  "id": "selat_makassar",
+  "name": "Selat Makassar",
+  "center": [
+    -1.5,
+    118.0
+  ],
+  "bounds": [
+    116.0,
+    -4.0,
+    120.0,
+    1.0
+  ],
+  "delta_t": 22.8,
+  "sst_avg": 28.6,
+  "max_depth": ">2500m",
+  "status": "good",
+  "status_text": "POTENSIAL",
+  "processed": {
+    "oceanographic": true,
+    "waves": true,
+    "bathymetry": true
+  },
+  "files": [
+    "bathy_grid.json",
+    "currents_grid.json",
+    "deep_temp_grid.json",
+    "deep_temp_meta.json",
+    "deltat_meta.json",
+    "delta_t_grid.json",
+    "salinity_grid.json",
+    "sst_grid.json",
+    "sst_thermal_meta.json",
+    "timeseries.json",
+    "waves_grid.json",
+    "waves_rose.json",
+    "waves_spectrum.json"
+  ]
+}
